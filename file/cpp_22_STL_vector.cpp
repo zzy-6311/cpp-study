@@ -4,6 +4,17 @@ using namespace std;
 #include<vector>//容器的引用头文件
 #include<algorithm>//标准算法头文件
 
+class person{
+public:
+    person(string na, int ag){
+        name = na;
+        age = ag;
+    }
+
+    string name;
+    int age;
+};
+
 void mtprint(int a){//自制标准打印
     cout << a << endl;
 }
@@ -40,7 +51,62 @@ void test1(){
     //需要包含标准算法头文件
     for_each(v.begin(), v.end(), mtprint);
 }
+//vector存放自定义数据类型
+void test2(){
+    person a("AAA", 10);
+    person b("BBB", 11);
+    person c("CCC", 12);
+    person d("DDD", 13);
+    person e("EEE", 14);
+
+    vector<person> v;
+
+    v.push_back(a);//参数的存储输入方式
+    v.push_back(b);//还有指针的存储输入形式，也就是vector的类型是<person *>，输入的时候就是v.push_back(&a);
+    v.push_back(c);
+    v.push_back(d);
+    v.push_back(e);
+
+    for (vector<person>::iterator it = v.begin(); it != v.end(); it++){
+        cout << "name:" << (*it).name << " age:" << (*it).age << endl;
+    }
+}
+
+//vector容器嵌套容器
+void test3(){
+    vector<vector<int>> v;
+
+    vector <int> v1;//容器嵌套容器就像是二维数组一样，数组嵌套数组
+    vector <int> v2;
+    vector <int> v3;
+    vector <int> v4;
+    vector <int> v5;
+
+    //小容器添加数据
+    for (int i = 0; i < 5; i++){
+        v1.push_back(i + 1);
+        v2.push_back(i + 1);
+        v3.push_back(i + 1);
+        v4.push_back(i + 1);
+        v5.push_back(i + 1);
+    }
+
+    v.push_back(v1);
+    v.push_back(v2);
+    v.push_back(v3);
+    v.push_back(v4);
+    v.push_back(v5);
+
+    for (vector<vector<int>>::iterator it = v.begin(); it != v.end(); it++){//注意这里的容器的指针嵌套
+        for (vector<int>::iterator vit = (*it).begin(); vit != (*it).end(); vit++){
+            cout << *vit << " ";
+        }
+        cout << endl;
+    }
+}
 
 int main(){
     test1();
+    test2();
+    test3();
 }
